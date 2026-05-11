@@ -131,6 +131,7 @@ export type {
 	SetModelHandler,
 	SetThinkingLevelHandler,
 	TerminalInputHandler,
+	ThemeChangedEvent,
 	// Events - Tool
 	ToolCallEvent,
 	ToolCallEventResult,

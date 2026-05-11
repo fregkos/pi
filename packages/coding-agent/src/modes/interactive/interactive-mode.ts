@@ -660,7 +660,12 @@ export class InteractiveMode {
 		this.renderInitialMessages();
 
 		// Set up theme file watcher
-		onThemeChange(() => {
+		onThemeChange((_previous, _current) => {
+			void this.session.extensionRunner.emit({
+				type: "theme_changed",
+				theme: { name: _current.name ?? "<unknown>" },
+				previousTheme: _previous ? { name: _previous.name } : undefined,
+			});
 			this.ui.invalidate();
 			this.updateEditorBorderColor();
 			this.ui.requestRender();

@@ -726,6 +726,19 @@ export interface ThinkingLevelSelectEvent {
 }
 
 // ============================================================================
+// Theme Events
+// ============================================================================
+
+/** Fired when the active theme changes */
+export interface ThemeChangedEvent {
+	type: "theme_changed";
+	/** The newly active theme */
+	theme: { name: string };
+	/** The previously active theme, or undefined on initial load */
+	previousTheme: { name: string } | undefined;
+}
+
+// ============================================================================
 // User Bash Events
 // ============================================================================
 
@@ -966,6 +979,7 @@ export type ExtensionEvent =
 	| ToolExecutionEndEvent
 	| ModelSelectEvent
 	| ThinkingLevelSelectEvent
+	| ThemeChangedEvent
 	| UserBashEvent
 	| InputEvent
 	| ToolCallEvent
@@ -1120,6 +1134,7 @@ export interface ExtensionAPI {
 	on(event: "tool_execution_end", handler: ExtensionHandler<ToolExecutionEndEvent>): void;
 	on(event: "model_select", handler: ExtensionHandler<ModelSelectEvent>): void;
 	on(event: "thinking_level_select", handler: ExtensionHandler<ThinkingLevelSelectEvent>): void;
+	on(event: "theme_changed", handler: ExtensionHandler<ThemeChangedEvent>): void;
 	on(event: "tool_call", handler: ExtensionHandler<ToolCallEvent, ToolCallEventResult>): void;
 	on(event: "tool_result", handler: ExtensionHandler<ToolResultEvent, ToolResultEventResult>): void;
 	on(event: "user_bash", handler: ExtensionHandler<UserBashEvent, UserBashEventResult>): void;

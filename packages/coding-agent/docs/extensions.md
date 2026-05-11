@@ -41,6 +41,7 @@ See [examples/extensions/](../examples/extensions/) for working implementations.
   - [Session Events](#session-events)
   - [Agent Events](#agent-events)
   - [Model Events](#model-events)
+  - [Theme Events](#theme-events)
   - [Tool Events](#tool-events)
 - [ExtensionContext](#extensioncontext)
 - [ExtensionCommandContext](#extensioncommandcontext)
@@ -329,6 +330,9 @@ user sends another prompt ◄─────────────────
 
 thinking level changes (settings, keybinding, pi.setThinkingLevel())
   └─► thinking_level_select
+
+theme changes (ctx.ui.setTheme(), settings selector, file watcher)
+  └─► theme_changed
 
 exit (Ctrl+C, Ctrl+D, SIGHUP, SIGTERM)
   └─► session_shutdown
@@ -668,6 +672,23 @@ pi.on("thinking_level_select", async (event, ctx) => {
 ```
 
 Use this to update extension UI when `pi.setThinkingLevel()`, model changes, or built-in thinking-level controls change the active thinking level.
+
+### Theme Events
+
+#### theme_changed
+
+Fired when the active theme changes — either by the user via settings, an extension calling `ctx.ui.setTheme()`, or the file watcher detecting a theme file modification.
+
+```typescript
+pi.on("theme_changed", async (event, ctx) => {
+  // event.theme - newly active theme
+  // event.previousTheme - previously active theme (undefined on startup)
+
+  ctx.ui.setStatus("theme", `theme: ${event.theme.name}`);
+});
+```
+
+Use this to update extension UI colors, status indicators, or react to theme switches in custom components.
 
 ### Tool Events
 

@@ -114,6 +114,7 @@ export type {
 	SlashCommandSource,
 	SourceInfo,
 	TerminalInputHandler,
+	ThemeChangedEvent,
 	ToolCallEvent,
 	ToolCallEventResult,
 	ToolDefinition,
